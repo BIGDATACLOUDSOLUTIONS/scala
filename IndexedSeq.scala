@@ -11,6 +11,7 @@ val x: IndexedSeq[Number] = IndexedSeq(1, 1.0, 1F)   // IndexedSeq[Number] = Vec
 
 If you ever need to create an empty IndexedSeq:
 val nums = IndexedSeq[Int]()            // IndexedSeq[Int] = Vector()
+
 Remember the construction syntax is just syntactic sugar for apply:
 val nums = IndexedSeq(1, 2, 3)          // IndexedSeq[Int] = Vector(1, 2, 3)
 val nums = IndexedSeq.apply(1, 2, 3)    // IndexedSeq[Int] = Vector(1, 2, 3)
@@ -40,17 +41,21 @@ You can also use the fill and tabulate methods:
 IndexedSeq.fill(3)("foo")          // IndexedSeq[String] = Vector(foo, foo, foo)
 IndexedSeq.tabulate(3)(n => n * n)      // IndexedSeq[Int] = Vector(0, 1, 4)
 IndexedSeq.tabulate(4)(n => n * n)      // IndexedSeq[Int] = Vector(0, 1, 4, 9)
+val h=IndexedSeq.tabulate(3,4)(_*_)    // IndexedSeq[IndexedSeq[Int]] = Vector(Vector(0, 0, 0, 0), Vector(0, 1, 2, 3), Vector(0, 2, 4, 6))
 
 
 How to add (append and prepend) elements to a IndexedSeq
-Because IndexedSeq is immutable, you can’t add elements to an existing IndexedSeq. The way you work with IndexedSeq is to modify the elements it contains as you assign the results to a new IndexedSeq.
-Method	Description	Example
-:+	--> append 1 item	--> oldIndexedSeq :+ e
-++	--> append N items -->	oldIndexedSeq ++ newIndexedSeq
-+:	--> prepend 1 item -->	e +: oldIndexedSeq
-++:	--> prepend N items	--> newIndexedSeq ++: oldIndexedSeq
+Because IndexedSeq is immutable, you can’t add elements to an existing IndexedSeq. The way you work with IndexedSeq is to modify
+the elements it contains as you assign the results to a new IndexedSeq.
+
+Method	  Description	          Example
+:+	--> append 1 item	  --> oldIndexedSeq :+ e
+++	--> append N items  -->	oldIndexedSeq ++ newIndexedSeq
++:	--> prepend 1 item  -->	e +: oldIndexedSeq
+++:	--> prepend N items --> newIndexedSeq ++: oldIndexedSeq
 
 Again, you can use these methods, but it’s not recommended.
+
 Append and prepend examples
 These examples show how to use those methods to append and prepend elements to an IndexedSeq:
 val v1 = IndexedSeq(4,5,6)         // IndexedSeq[Int] = Vector(4, 5, 6)
@@ -59,31 +64,38 @@ val v3 = v2 ++ IndexedSeq(8,9)     // Vector(4, 5, 6, 7, 8, 9)
 
 val v4 = 3 +: v3                   // Vector(3, 4, 5, 6, 7, 8, 9)
 val v5 = IndexedSeq(1,2) ++: v4    // Vector(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
 About the : character in the method names
-Note that during these operations the : character is always next to the old (original) sequence. I use that as a way to remember these methods.
-The correct technical way to think about this is that a Scala method name that ends with the : character is right-associative, meaning that the method comes from the variable on the right side of the expression. Therefore, with +: and ++:, these methods comes from the IndexedSeq that’s on the right of the method name.
-Filtering methods (how to “remove” elements from a IndexedSeq)
-A IndexedSeq is an immutable sequence, so you don’t remove elements from it. Instead, you describe how to remove elements as you assign the results to a new collection. These methods let you “remove” elements during this process:
+Note that during these operations the : character is always next to the old (original) sequence. I use that as a way to remember these 
+methods. The correct technical way to think about this is that a Scala method name that ends with the : character is right-associative, 
+meaning that the method comes from the variable on the right side of the expression. 
+Therefore, with +: and ++:, these methods comes from the IndexedSeq that’s on the right of the method name.
+
+Filtering methods (how to “remove” elements from a IndexedSeq):
+A IndexedSeq is an immutable sequence, so you don’t remove elements from it. Instead, you describe how to remove elements as you assign the 
+results to a new collection. These methods let you “remove” elements during this process:
+
+
 Method	Description
-distinct	Return a new sequence with no duplicate elements
-drop(n)	Return all elements after the first n elements
-dropRight(n)	Return all elements except the last n elements
-dropWhile(p)	Drop the first sequence of elements that matches the predicate p
-filter(p)	Return all elements that match the predicate p
-filterNot(p)	Return all elements that do not match the predicate p
-find(p)	Return the first element that matches the predicate p
-head	Return the first element; can throw an exception if the IndexedSeq is empty
-headOption	Returns the first element as an Option
-init	All elements except the last one
-intersect(s)	Return the intersection of the sequence and another sequence s
-last	The last element; can throw an exception if the IndexedSeq is empty
-lastOption	The last element as an Option
-slice(f,u)	A sequence of elements from index f (from) to index u (until)
-tail	All elements after the first element
-take(n)	The first n elements
-takeRight(n)	The last n elements
-takeWhile(p)	The first subset of elements that matches the predicate p
-Examples
+distinct --> Return a new sequence with no duplicate elements
+drop(n) --> Return all elements after the first n elements
+dropRight(n) -->	Return all elements except the last n elements
+dropWhile(p) -->	Drop the first sequence of elements that matches the predicate p
+filter(p) -->	Return all elements that match the predicate p
+filterNot(p) -->	Return all elements that do not match the predicate p
+find(p) -->	Return the first element that matches the predicate p
+head -->	Return the first element; can throw an exception if the IndexedSeq is empty
+headOption -->	Returns the first element as an Option
+init -->	All elements except the last one
+intersect(s) -->	Return the intersection of the sequence and another sequence s
+last -->	The last element; can throw an exception if the IndexedSeq is empty
+lastOption -->	The last element as an Option
+slice(f,u) -->	A sequence of elements from index f (from) to index u (until) tail	All elements after the first element
+take(n) -->	The first n elements
+takeRight(n) -->	The last n elements
+takeWhile(p) -->	The first subset of elements that matches the predicate p
+
+Examples:
 val a = IndexedSeq(10, 20, 30, 40, 10)   // Vector(10, 20, 30, 40, 10)
 a.distinct                            // Vector(10, 20, 30, 40)
 a.drop(2)                             // Vector(30, 40, 10)
@@ -120,6 +132,7 @@ java.lang.UnsupportedOperationException: empty.last
 How to “update” IndexedSeq elements
 Because IndexedSeq is immutable, you can’t update elements in place, but depending on your definition of “update,” there are a variety of methods that let you update a IndexedSeq as you assign the result to a new variable:
 Method	Returns
+
 collect(pf)	A new collection by applying the partial function pf to all elements of the sequence, returning elements for which the function is defined
 distinct	A new sequence with no duplicate elements
 flatten	Transforms a sequence of sequences into a single sequence
