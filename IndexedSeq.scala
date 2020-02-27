@@ -155,6 +155,7 @@ union(s) -->	A new sequence that contains elements from the current sequence and
 val x = IndexedSeq(Some(1), None, Some(3), None)   // IndexedSeq[Option[Int]] = Vector(Some(1), None, Some(3), None)
 
 x.collect{case Some(i) => i}              // IndexedSeq(1, 3)
+//For More Use Cases of "Collect", read @ https://medium.com/@sergigp/using-scala-collect-3a9880f71e23
 
 val x = IndexedSeq(1,2,1,2)
 x.distinct                                // Vector(1, 2)
