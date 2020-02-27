@@ -170,21 +170,26 @@ fruits.map(_.toUpperCase)                 // Vector(APPLE, PEAR)
 fruits.flatMap(_.toUpperCase)             // Vector(A, P, P, L, E, P, E, A, R)
 
 IndexedSeq(2,4).union(IndexedSeq(1,3))    // Vector(2, 4, 1, 3)
+
+//Question: What is difference between in flapMap and flatten Methods?
+
 Transformer methods
 A transformer method is a method that constructs a new collection from an existing collection.
-Method	Returns
-collect(pf)	Creates a new collection by applying the partial function pf to all elements of the sequence, returning elements for which the function is defined
-diff(c)	The difference between this sequence and the collection c
-distinct	A new sequence with no duplicate elements
-flatten	Transforms a sequence of sequences into a single sequence
-flatMap(f)	When working with sequences, it works like map followed by flatten
-map(f)	A new sequence by applying the function f to each element in the IndexedSeq
-reverse	A new sequence with the elements in reverse order
-sortWith(f)	A new sequence with the elements sorted with the use of the function f
-updated(i,v)	A new IndexedSeq with the element at index i replaced with the new value v
-union(c)	A new sequence that contains all elements of the sequence and the collection c
-zip(c)	A collection of pairs by matching the sequence with the elements of the collection c
-zipWithIndex	A sequence of each element contained in a tuple along with its index
+
+collect(pf) --> Creates a new collection by applying the partial function pf to all elements of the sequence, returning elements for 
+                which the function is defined
+diff(c) -->	The difference between this sequence and the collection c
+distinct -->	A new sequence with no duplicate elements
+flatten -->	Transforms a sequence of sequences into a single sequence
+flatMap(f) -->	When working with sequences, it works like map followed by flatten
+map(f) -->	A new sequence by applying the function f to each element in the IndexedSeq
+reverse -->	A new sequence with the elements in reverse order
+sortWith(f) -->	A new sequence with the elements sorted with the use of the function f
+updated(i,v) -->	A new IndexedSeq with the element at index i replaced with the new value v
+union(c) -->	A new sequence that contains all elements of the sequence and the collection c
+zip(c) -->	A collection of pairs by matching the sequence with the elements of the collection c
+zipWithIndex -->	A sequence of each element contained in a tuple along with its index
+
 val x = IndexedSeq(Some(1), None, Some(3), None)
 
 x.collect{case Some(i) => i}                // Vector(1, 3)
@@ -224,14 +229,7 @@ val a = IndexedSeq.range('a', 'e')          // Vector(a, b, c, d)
 a.zipWithIndex                              // Vector((a,0), (b,1), (c,2), (d,3))
 
 
-
-
-
-
-
-Informational and mathematical methods
-These methods let you obtain information from a collection.
-
+Informational and mathematical methods: These methods let you obtain information from a collection.
 
 contains(e) -->	True if the sequence contains the element e
 containsSlice(s) -->	True if the sequence contains the sequence s
@@ -283,6 +281,7 @@ val letters = ('a' to 'f').toIndexedSeq       // IndexedSeq[Char] = NumericRange
 
 
 The examples:
+
 evens.contains(2)                           // true
 firstTen.containsSlice(IndexedSeq(3,4,5))   // true
 firstTen.count(_ % 2 == 0)                  // 5
@@ -362,17 +361,18 @@ firstTen.foldRight(100)(_ - _)              // 95
 firstTen.reduce(_ - _)                      // -53
 firstTen.reduceLeft(_ - _)                  // -53
 firstTen.reduceRight(_ - _)                 // -5
+
 Note: Methods like foldRight and reduceRight are not recommended with IndexedSeq because they will be very slow for large collections.
-Grouping methods
-These methods generally let you create multiple groups from a collection.
-Method	Returns
-groupBy(f)	A map of collections created by the function f
-grouped	Breaks the sequence into fixed-size iterable collections
-partition(p)	Two collections created by the predicate p
-sliding(i,s)	Group elements into fixed size blocks by passing a sliding window of size i and step s over them
-span(p)	A collection of two collections; the first created by sequence.takeWhile(p), and the second created by sequence.dropWhile(p)
-splitAt(i)	A collection of two collections by splitting the sequence at index i
-unzip	The opposite of zip, breaks a collection into two collections by dividing each element into two pieces; such as breaking up a sequence of Tuple2 elements
+
+Grouping methods:These methods generally let you create multiple groups from a collection.
+
+groupBy(f) -->	A map of collections created by the function f
+grouped -->	Breaks the sequence into fixed-size iterable collections
+partition(p) -->	Two collections created by the predicate p
+sliding(i,s) -->	Group elements into fixed size blocks by passing a sliding window of size i and step s over them
+span(p) -->	A collection of two collections; the first created by sequence.takeWhile(p), and the second created by sequence.dropWhile(p)
+splitAt(i) -->	A collection of two collections by splitting the sequence at index i
+unzip -->	The opposite of zip, breaks a collection into two collections by dividing each element into two pieces; such as breaking up a sequence of Tuple2 elements
 
 
 
