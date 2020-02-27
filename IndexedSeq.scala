@@ -95,6 +95,11 @@ take(n) -->	The first n elements
 takeRight(n) -->	The last n elements
 takeWhile(p) -->	The first subset of elements that matches the predicate p
 
+Note:
+dropWhile -->	discards all the items at the start of a collection for which the condition is true. It stops discarding as soon as 
+the first item fails the condition.
+filter --> discards all the items throughout the collection where the condition is not true. It does not stop until the end of the collection.
+
 Examples:
 val a = IndexedSeq(10, 20, 30, 40, 10)   // Vector(10, 20, 30, 40, 10)
 a.distinct                            // Vector(10, 20, 30, 40)
