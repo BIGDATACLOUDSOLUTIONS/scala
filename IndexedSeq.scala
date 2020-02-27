@@ -121,6 +121,8 @@ a.tail                                // Vector(20, 30, 40, 10)
 a.take(3)                             // Vector(10, 20, 30)
 a.takeRight(2)                        // Vector(40, 10)
 a.takeWhile(_ < 30)                   // Vector(10, 20)
+
+
 As noted, head and last can throw exceptions:
 scala> val a = IndexedSeq[Int]()
 a: IndexedSeq[Int] = Vector()
@@ -134,17 +136,22 @@ scala> a.last
 java.lang.UnsupportedOperationException: empty.last
   at scala.collection.immutable.Vector.last(Vector.scala:197)
   ... 28 elided
-How to “update” IndexedSeq elements
-Because IndexedSeq is immutable, you can’t update elements in place, but depending on your definition of “update,” there are a variety of methods that let you update a IndexedSeq as you assign the result to a new variable:
-Method	Returns
 
-collect(pf)	A new collection by applying the partial function pf to all elements of the sequence, returning elements for which the function is defined
-distinct	A new sequence with no duplicate elements
-flatten	Transforms a sequence of sequences into a single sequence
-flatMap(f)	When working with sequences, it works like map followed by flatten
-map(f)	Return a new sequence by applying the function f to each element in the IndexedSeq
-updated(i,v)	A new sequence with the element at index i replaced with the new value v
-union(s)	A new sequence that contains elements from the current sequence and the sequence s
+
+
+How to "update" IndexedSeq elements
+Because IndexedSeq is immutable, you can’t update elements in place, but depending on your definition of "update", there are a variety of 
+methods that let you update a IndexedSeq as you assign the result to a new variable:
+
+collect(pf) --> A new collection by applying the partial function pf to all elements of the sequence, returning elements for which the 
+                function is defined
+distinct -->	A new sequence with no duplicate elements
+flatten -->	Transforms a sequence of sequences into a single sequence
+flatMap(f) -->	When working with sequences, it works like map followed by flatten
+map(f) -->	Return a new sequence by applying the function f to each element in the IndexedSeq
+updated(i,v) -->	A new sequence with the element at index i replaced with the new value v
+union(s) -->	A new sequence that contains elements from the current sequence and the sequence s
+
 val x = IndexedSeq(Some(1), None, Some(3), None)   // IndexedSeq[Option[Int]] = Vector(Some(1), None, Some(3), None)
 
 x.collect{case Some(i) => i}              // IndexedSeq(1, 3)
@@ -221,56 +228,50 @@ a.zipWithIndex                              // Vector((a,0), (b,1), (c,2), (d,3)
 
 
 
-
-
-
-
-
-
-
-
 Informational and mathematical methods
 These methods let you obtain information from a collection.
-Method	Returns
-contains(e)	True if the sequence contains the element e
-containsSlice(s)	True if the sequence contains the sequence s
-count(p)	The number of elements in the sequence for which the predicate is true
-endsWith(s)	True if the sequence ends with the sequence s
-exists(p)	True if the predicate returns true for at least one element in the sequence
-find(p)	The first element that matches the predicate p, returned as an Option
-forall(p)	True if the predicate p is true for all elements in the sequence
-hasDefiniteSize	True if the sequence has a finite size
-indexOf(e)	The index of the first occurrence of the element e in the sequence
-indexOf(e,i)	The index of the first occurrence of the element e in the sequence, searching only from the value of the start index i
-indexOfSlice(s)	The index of the first occurrence of the sequence s in the sequence
-indexOfSlice(s,i)	The index of the first occurrence of the sequence s in the sequence, searching only from the value of the start index i
-indexWhere(p)	The index of the first element where the predicate p returns true
-indexWhere(p,i)	The index of the first element where the predicate p returns true, searching only from the value of the start index i
-isDefinedAt(i)	True if the sequence contains the index i
-isEmpty	True if the sequence contains no elements
-lastIndexOf(e)	The index of the last occurrence of the element e in the sequence
-lastIndexOf(e,i)	The index of the last occurrence of the element e in the sequence, occurring before or at the index i
-lastIndexOfSlice(s)	The index of the last occurrence of the sequence s in the sequence
-lastIndexOfSlice(s,i)	The index of the last occurrence of the sequence s in the sequence, occurring before or at the index i
-lastIndexWhere(p)	The index of the first element where the predicate p returns true
-lastIndexWhere(p,i)	The index of the first element where the predicate p returns true, occurring before or at the index i
-max	The largest element in the sequence
-min	The smallest element in the sequence
-nonEmpty	True if the sequence is not empty (i.e., if it contains 1 or more elements)
-product	The result of multiplying the elements in the collection
-segmentLength(p,i)	The length of the longest segment for which the predicate p is true, starting at the index i
-size	The number of elements in the sequence
-startsWith(s)	True if the sequence begins with the elements in the sequence s
-startsWith(s,i)	True if the sequence has the sequence s starting at the index i
-sum	The sum of the elements in the sequence
-fold(s)(o)	“Fold” the elements of the sequence using the binary operator o, using an initial seed s (see also reduce)
-foldLeft(s)(o)	“Fold” the elements of the sequence using the binary operator o, using an initial seed s, going from left to right (see also reduceLeft)
-foldRight(s)(o)	“Fold” the elements of the sequence using the binary operator o, using an initial seed s, going from right to left (see also reduceRight)
-reduce	“Reduce” the elements of the sequence using the binary operator o
-reduceLeft	“Reduce” the elements of the sequence using the binary operator o, going from left to right
-reduceRight	“Reduce” the elements of the sequence using the binary operator o, going from right to left
-Examples
-First, some sample data:
+
+
+contains(e) -->	True if the sequence contains the element e
+containsSlice(s) -->	True if the sequence contains the sequence s
+count(p) -->	The number of elements in the sequence for which the predicate is true
+endsWith(s) -->	True if the sequence ends with the sequence s
+exists(p) -->	True if the predicate returns true for at least one element in the sequence
+find(p) -->	The first element that matches the predicate p, returned as an Option
+forall(p) -->	True if the predicate p is true for all elements in the sequence
+hasDefiniteSize -->	True if the sequence has a finite size
+indexOf(e) -->	The index of the first occurrence of the element e in the sequence
+indexOf(e,i) -->	The index of the first occurrence of the element e in the sequence, searching only from the value of the start index i
+indexOfSlice(s) -->	The index of the first occurrence of the sequence s in the sequence
+indexOfSlice(s,i) -->	The index of the first occurrence of the sequence s in the sequence, searching only from the value of the start index i
+indexWhere(p) -->	The index of the first element where the predicate p returns true
+indexWhere(p,i) -->	The index of the first element where the predicate p returns true, searching only from the value of the start index i
+isDefinedAt(i) -->	True if the sequence contains the index i
+isEmpty -->	True if the sequence contains no elements
+lastIndexOf(e) -->	The index of the last occurrence of the element e in the sequence
+lastIndexOf(e,i) -->	The index of the last occurrence of the element e in the sequence, occurring before or at the index i
+lastIndexOfSlice(s) -->	The index of the last occurrence of the sequence s in the sequence
+lastIndexOfSlice(s,i) -->	The index of the last occurrence of the sequence s in the sequence, occurring before or at the index i
+lastIndexWhere(p) -->	The index of the first element where the predicate p returns true
+lastIndexWhere(p,i) -->	The index of the first element where the predicate p returns true, occurring before or at the index i
+max -->	The largest element in the sequence
+min -->	The smallest element in the sequence
+nonEmpty -->	True if the sequence is not empty (i.e., if it contains 1 or more elements)
+product -->	The result of multiplying the elements in the collection
+segmentLength(p,i) -->	The length of the longest segment for which the predicate p is true, starting at the index i
+size -->	The number of elements in the sequence
+startsWith(s) -->	True if the sequence begins with the elements in the sequence s
+startsWith(s,i) -->	True if the sequence has the sequence s starting at the index i
+sum --> The sum of the elements in the sequence
+fold(s)(o) --> "Fold" the elements of the sequence using the binary operator o, using an initial seed s (see also reduce)
+foldLeft(s)(o) --> "Fold" the elements of the sequence using the binary operator o, using an initial seed s, going from left to right (see also reduceLeft)
+foldRight(s)(o) --> "Fold" the elements of the sequence using the binary operator o, using an initial seed s, going from right to left (see also reduceRight)
+reduce -->	"Reduce" the elements of the sequence using the binary operator o
+reduceLeft -->	"Reduce" the elements of the sequence using the binary operator o, going from left to right
+reduceRight -->	"Reduce" the elements of the sequence using the binary operator o, going from right to left
+
+Examples: 
+Some sample data:
 val evens = IndexedSeq(2, 4, 6)               // Vector(2, 4, 6)
 val odds = IndexedSeq(1, 3, 5)                // Vector(1, 3, 5)
 val fbb = "foo bar baz"                       // String = foo bar baz
@@ -278,7 +279,6 @@ val firstTen = (1 to 10).toIndexedSeq         // IndexedSeq[Int] = Range 1 to 10
 val fiveToFifteen = (5 to 15).toIndexedSeq    // IndexedSeq[Int] = Range 5 to 15
 val empty = IndexedSeq[Int]()                 // Vector()
 val letters = ('a' to 'f').toIndexedSeq       // IndexedSeq[Char] = NumericRange a to f
-
 
 
 The examples:
